@@ -69,7 +69,6 @@ include("vues/v_listeVisiteurCL.php");
 
 if($va == 1){
 $idVisiteur = $_SESSION['idVisiteur'];
-$mois = $_SESSION['mois'];
 $numAnnee =substr( $mois,0,4);
 $numMois =substr( $mois,4,2);
 $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$mois);

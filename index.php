@@ -25,6 +25,12 @@ switch($uc){
 	case 'validerFicheFrais':{
 		include("controleurs/c_validerFicheFrais.php");break; 
 	}
+	case 'ajoutcrendu':{
+		include("controleurs/c_ajoutcrendu.php");break; 
+	}
+	case 'mescrendu':{
+		include("controleurs/c_mescrendu.php");break; 
+	}
 }
 include("vues/v_pied.php") ;
 ?>

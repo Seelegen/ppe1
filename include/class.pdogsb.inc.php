@@ -19,7 +19,7 @@ class PdoGsb{
       	private static $serveur='mysql:host=localhost';
       	private static $bdd='dbname=gsbfrais';   		
       	private static $user='root' ;    		
-      	private static $mdp='' ;	
+      	private static $mdp='root' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -258,6 +258,12 @@ class PdoGsb{
 		values(NULL,'$idVisiteur','$mois','$libelle','$dateFr','$montant')";
 		PdoGsb::$monPdo->exec($req);
 	}
+
+	public function creeNouveauCompteRendu($idVisiteur,$dateCr,$titreCr,$descriptionCr){
+		$req = "insert into compterendu
+		values('$idVisiteur','$dateCr','$titreCr','$descriptionCr')";
+		PdoGsb::$monPdo->exec($req);
+	}
 /**
  * Supprime le frais hors forfait dont l'id est passé en argument
  
@@ -372,4 +378,7 @@ class PdoGsb{
 		PdoGsb::$monPdo->exec($req);
 	}
 }
+
 ?>
+
+
