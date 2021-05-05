@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 31 mars 2021 à 10:56
+-- Généré le : ven. 30 avr. 2021 à 11:45
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `gsbfrais`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `compterendu`
+--
+
+DROP TABLE IF EXISTS `compterendu`;
+CREATE TABLE IF NOT EXISTS `compterendu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `titre` varchar(50) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `idVisiteur` char(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idVisiteur` (`idVisiteur`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `compterendu`
+--
+
+INSERT INTO `compterendu` (`id`, `date`, `titre`, `description`, `idVisiteur`) VALUES
+(1, '2021-04-15', 'Test', 'test', 'a17');
 
 -- --------------------------------------------------------
 
@@ -220,6 +244,12 @@ INSERT INTO `visiteur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, 
 --
 
 --
+-- Contraintes pour la table `compterendu`
+--
+ALTER TABLE `compterendu`
+  ADD CONSTRAINT `compterendu_ibfk_1` FOREIGN KEY (`idVisiteur`) REFERENCES `visiteur` (`id`);
+
+--
 -- Contraintes pour la table `fichefrais`
 --
 ALTER TABLE `fichefrais`
@@ -244,7 +274,7 @@ DELIMITER $$
 -- Évènements
 --
 DROP EVENT `cloture_fiche_frais`$$
-CREATE DEFINER=`root`@`localhost` EVENT `cloture_fiche_frais` ON SCHEDULE EVERY 10 MONTH STARTS '2020-03-30 10:46:31' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE fichefrais SET idEtat = "CL" WHERE idEtat = "CR" AND right(mois, 2) = (SELECT month(adddate(curdate(), INTERVAL -1 MONTH)))$$
+CREATE DEFINER=`root`@`localhost` EVENT `cloture_fiche_frais` ON SCHEDULE EVERY 10 MONTH STARTS '2021-04-30 11:51:04' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE fichefrais SET idEtat = "CL" WHERE idEtat = "CR" AND right(mois, 2) = (SELECT month(adddate(curdate(), INTERVAL -1 MONTH)))$$
 
 DELIMITER ;
 COMMIT;
